@@ -6,9 +6,9 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation"
 export default function Search({ placeholder }: { placeholder: string }) {
   // useSearchParams- Allows you to access the parameters of the current URL. For example, the search params for this URL /dashboard/invoices?page=1&query=pending would look like this: {page: '1', query: 'pending'}.
   const searchParams = useSearchParams()
-    // usePathname- Returns the current pathname of the URL. For example, if you are on /dashboard/invoices, it will return /dashboard/invoices.
+  // usePathname- Returns the current pathname of the URL. For example, if you are on /dashboard/invoices, it will return /dashboard/invoices.
   const pathname = usePathname()
-    // useRouter- Provides methods to navigate programmatically, such as replace, push, etc
+  // useRouter- Provides methods to navigate programmatically, such as replace, push, etc
   const { replace } = useRouter()
 
   function handleSearch(term: string) {
@@ -35,7 +35,9 @@ export default function Search({ placeholder }: { placeholder: string }) {
         onChange={(e) => {
           handleSearch(e.target.value)
         }}
+        defaultValue={searchParams.get("query")?.toString()}
       />
+
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
     </div>
   )
