@@ -1,8 +1,10 @@
 //  By adding the 'use server', you mark all the exported functions within the file as Server Actions.
 "use server";
 
-import { log } from "console";
 import { z } from "zod";
+import postgres from "postgres";
+
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 
 // 1. Type validation and coercion with Zod Library
 const FormSchema = z.object({
@@ -29,5 +31,9 @@ export async function createInvoice(formData: FormData) {
   // 3. Create New Date
   // Finally, let's create a new date with the format "YYYY-MM-DD" for the invoice's creation date:
   const date = new Date().toISOString().split("T")[0];
-  log(date);
+
+  await sql`
+    INSERT INTO invoices (customer_id, amount, status, date)
+    VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
+  `;
 }
