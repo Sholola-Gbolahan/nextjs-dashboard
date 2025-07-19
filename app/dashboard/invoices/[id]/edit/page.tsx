@@ -2,7 +2,14 @@ import Form from "@/app/ui/invoices/edit-form";
 import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
 import { fetchCustomers } from "@/app/lib/data";
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
+  console.log(id);
+
   return (
     <main>
       <Breadcrumbs
